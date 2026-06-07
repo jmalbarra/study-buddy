@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --cream: #F5EFE6;
+    --terracota: #C1623A;
+    --indigo: #2B2D3E;
+    --gold: #D4A95E;
+    --sage: #7C9070;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 390px;
+    height: 844px;
+    background: var(--cream);
+    font-family: 'Inter', sans-serif;
+    color: var(--indigo);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Greca pattern strip */
+  .greca {
+    height: 14px;
+    width: 100%;
+    background-image:
+      linear-gradient(90deg, var(--terracota) 25%, transparent 25%, transparent 50%, var(--terracota) 50%, var(--terracota) 75%, transparent 75%);
+    background-size: 28px 14px;
+    opacity: 0.55;
+  }
+
+  .header {
+    padding: 28px 24px 16px;
+  }
+  .header .greeting {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--indigo);
+  }
+  .header .subtitle {
+    font-size: 14px;
+    color: #6b6d7d;
+    margin-top: 4px;
+  }
+
+  .streak-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--gold);
+    color: var(--indigo);
+    font-weight: 600;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-top: 14px;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 20px;
+    margin: 12px 24px;
+    padding: 20px;
+    box-shadow: 0 8px 24px rgba(43,45,62,0.08);
+  }
+
+  .card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+
+  /* Spider chart (octagon) */
+  .spider-wrap { display: flex; justify-content: center; padding: 8px 0 4px; }
+  svg .axis-line { stroke: #e2dcd2; stroke-width: 1; }
+  svg .grid-ring { fill: none; stroke: #ece5d9; stroke-width: 1; }
+  svg .data-shape { fill: rgba(193, 98, 58, 0.25); stroke: var(--terracota); stroke-width: 2.5; }
+  svg .axis-label { font-family: 'Inter', sans-serif; font-size: 9px; fill: #6b6d7d; font-weight: 600; }
+  svg .axis-dot { fill: var(--terracota); }
+
+  .legend-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 11px;
+    color: #8a8c9a;
+  }
+
+  /* Quick stats row */
+  .stats-row { display: flex; gap: 12px; margin: 4px 24px 12px; }
+  .stat-box {
+    flex: 1;
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(43,45,62,0.06);
+  }
+  .stat-box .value {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--terracota);
+  }
+  .stat-box .label {
+    font-size: 11px;
+    color: #8a8c9a;
+    margin-top: 2px;
+  }
+
+  /* CTA button */
+  .cta {
+    margin: 16px 24px;
+    background: var(--indigo);
+    color: var(--cream);
+    text-align: center;
+    padding: 16px;
+    border-radius: 18px;
+    font-weight: 600;
+    font-size: 15px;
+    box-shadow: 0 10px 28px rgba(43,45,62,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .cta .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+
+  /* Bottom nav */
+  .bottom-nav {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 76px;
+    background: #fff;
+    border-top: 1px solid #ece5d9;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-bottom: 14px;
+  }
+  .nav-item { display:flex; flex-direction:column; align-items:center; gap:4px; font-size: 10px; color: #b3b4c0; font-weight: 600;}
+  .nav-item.active { color: var(--terracota); }
+  .nav-icon { width: 22px; height: 22px; border-radius: 7px; border: 2px solid currentColor; }
+  .nav-icon.circle { border-radius: 50%; }
+  .nav-icon.diamond { transform: rotate(45deg); border-radius: 4px; }
+</style>
+</head>
+<body>
+  <div class="greca"></div>
+  <div class="header">
+    <div class="greeting">Hola, Lucas</div>
+    <div class="subtitle">Domingo 7 de junio · racha activa</div>
+    <div class="streak-pill">🔥 18 días seguidos</div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="value">52m</div><div class="label">Hoy</div></div>
+    <div class="stat-box"><div class="value">6h 40m</div><div class="label">Esta semana</div></div>
+    <div class="stat-box"><div class="value">22</div><div class="label">Récord racha</div></div>
+  </div>
+
+  <div class="card">
+    <h2>Balance de práctica</h2>
+    <div class="spider-wrap">
+      <svg width="220" height="200" viewBox="0 0 220 200">
+        <!-- rings -->
+        <polygon class="grid-ring" points="110,20 168,46 194,104 168,162 110,188 52,162 26,104 52,46"/>
+        <polygon class="grid-ring" points="110,50 153,68 172,104 153,140 110,158 67,140 48,104 67,68"/>
+        <polygon class="grid-ring" points="110,80 138,90 150,104 138,118 110,128 82,118 70,104 82,90"/>
+        <!-- axis lines -->
+        <line class="axis-line" x1="110" y1="104" x2="110" y2="20"/>
+        <line class="axis-line" x1="110" y1="104" x2="168" y2="46"/>
+        <line class="axis-line" x1="110" y1="104" x2="194" y2="104"/>
+        <line class="axis-line" x1="110" y1="104" x2="168" y2="162"/>
+        <line class="axis-line" x1="110" y1="104" x2="110" y2="188"/>
+        <line class="axis-line" x1="110" y1="104" x2="52" y2="162"/>
+        <line class="axis-line" x1="110" y1="104" x2="26" y2="104"/>
+        <line class="axis-line" x1="110" y1="104" x2="52" y2="46"/>
+        <!-- data shape (irregular = unbalanced) -->
+        <polygon class="data-shape" points="110,38 158,58 182,104 150,148 110,140 84,150 60,104 96,62"/>
+        <!-- labels -->
+        <text class="axis-label" x="110" y="14" text-anchor="middle">Técnica</text>
+        <text class="axis-label" x="180" y="42" text-anchor="middle">Repert.</text>
+        <text class="axis-label" x="208" y="108" text-anchor="middle">Lectura</text>
+        <text class="axis-label" x="180" y="172" text-anchor="middle">Teoría</text>
+        <text class="axis-label" x="110" y="200" text-anchor="middle">Oído</text>
+        <text class="axis-label" x="40" y="172" text-anchor="middle">Ritmo</text>
+        <text class="axis-label" x="14" y="108" text-anchor="middle">Improv.</text>
+        <text class="axis-label" x="40" y="42" text-anchor="middle">Perform.</text>
+      </svg>
+    </div>
+    <div class="legend-row">
+      <span>Última semana</span>
+      <span style="color:#C1623A; font-weight:600;">● Tu práctica</span>
+    </div>
+  </div>
+
+  <div class="cta"><span class="dot"></span> Iniciar sesión de práctica</div>
+
+  <div class="bottom-nav">
+    <div class="nav-item active"><div class="nav-icon diamond"></div>Inicio</div>
+    <div class="nav-item"><div class="nav-icon circle"></div>Araña</div>
+    <div class="nav-item"><div class="nav-icon"></div>Historial</div>
+    <div class="nav-item"><div class="nav-icon circle"></div>Perfil</div>
+  </div>
+</body>
+</html>
