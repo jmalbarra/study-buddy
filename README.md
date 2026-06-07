@@ -61,17 +61,18 @@ Una app que sea el **compañero de práctica ideal** para un músico:
 
 #### Pro — ~USD 3–5/mes
 - Historial completo e ilimitado
-- Áreas de práctica personalizables (cantidad y nombre)
 - Gráfico de araña (balance de práctica)
 - Modo Pomodoro configurable
 - Notificaciones y recordatorios
 - Gráficos avanzados (tendencias semanales, mensuales)
 - Metas por área
 
-#### Premium — ~USD 8–10/mes
+#### Premium — ~USD 8–10/mes (a futuro, no prioritario)
 - Todo lo anterior
-- Coach virtual con IA (chat motivacional, análisis de tu práctica, sugerencias de plan)
+- Orfeo: coach virtual con IA (chat motivacional, análisis de tu práctica, sugerencias de plan)
 - Reportes semanales automáticos por email/Telegram
+
+> **Nota:** el coach IA (Orfeo) queda fuera del alcance inicial. Se evalúa para una etapa posterior, una vez validado el producto base.
 
 ### Estrategia de lanzamiento
 - **Beta gratuita** para los primeros 500 usuarios (feedback y validación)
@@ -83,7 +84,7 @@ Una app que sea el **compañero de práctica ideal** para un músico:
 ## Cómo funciona la app — Features
 
 ### 1. Áreas de práctica
-El usuario define sus áreas al hacer onboarding. Por defecto sugerimos 8 áreas basadas en los frameworks de ABRSM, Royal Conservatory of Music y la investigación de Jonathan Harnum:
+Las 8 áreas son **fijas** (no configurables), basadas en los frameworks de ABRSM, Royal Conservatory of Music y la investigación de Jonathan Harnum. Esto simplifica el onboarding, mantiene comparable el gráfico de araña entre usuarios, y evita la complejidad de UI de la personalización:
 
 | Área | Qué incluye |
 |------|-------------|
@@ -95,8 +96,6 @@ El usuario define sus áreas al hacer onboarding. Por defecto sugerimos 8 áreas
 | Ritmo | Trabajo con metrónomo, subdivisión |
 | Improvisación | Creatividad libre, composición |
 | Performance | Run-throughs completos, práctica mental |
-
-En el plan Pro puede editar nombres y agregar/quitar áreas.
 
 ### 2. Registro de sesión
 Flujo principal de la app:
@@ -139,7 +138,10 @@ El corazón visual de la app.
 - Aviso si llevas X días sin practicar
 - Felicitación al cumplir un hito (7 días de racha, 100 horas acumuladas, etc.)
 
-### 7. Coach virtual con IA (Premium)
+### 7. Orfeo — Coach virtual con IA (a futuro, fuera del alcance inicial)
+> Queda definido como posible feature de una etapa posterior. No forma parte del desarrollo del sitio por ahora.
+
+- Nombre: **Orfeo** (músico mítico griego, mentor)
 - Chat conversacional dentro de la app
 - Acceso al historial del usuario para dar contexto
 - Puede: motivar, sugerir balance de práctica, responder dudas pedagógicas generales
@@ -154,7 +156,7 @@ El corazón visual de la app.
 > Lucas tiene 22 años y estudia guitarra. Nunca registró su práctica formalmente.
 
 1. Descarga Melete, crea cuenta
-2. En el onboarding selecciona sus áreas (quita "Lectura", agrega "Composición")
+2. En el onboarding ve sus 8 áreas de práctica (fijas)
 3. Empieza su primera sesión: elige "Técnica", activa el temporizador
 4. A los 30 minutos lo pausa, escribe "escalas pentatónicas en todas las posiciones"
 5. Guarda. Ve su primer registro en el dashboard
@@ -175,12 +177,12 @@ El corazón visual de la app.
 3. Anota mentalmente rebalancear la semana siguiente
 4. Ve que su promedio diario subió de 45 a 62 minutos respecto al mes anterior
 
-### Caso 4 — Uso del Coach IA (Premium)
+### Caso 4 — Uso de Orfeo (a futuro, no implementado en esta etapa)
 > Lucas lleva 2 meses y siente que no avanza en Lectura.
 
-1. Abre el chat del Coach
+1. Abre el chat de Orfeo
 2. Escribe: "Hace 2 meses que practico pero la lectura no mejora"
-3. El Coach ve su historial: Lucas dedicó 3% del tiempo a Lectura en 2 meses
+3. Orfeo ve su historial: Lucas dedicó 3% del tiempo a Lectura en 2 meses
 4. Responde con contexto específico, sugiere una rutina de 15 minutos diarios de sightreading
 5. Lucas agenda un recordatorio desde la misma conversación
 
@@ -195,6 +197,8 @@ El corazón visual de la app.
 
 ## Pantallas principales (flujo de navegación)
 
+> Diseño **mobile-first**: cada pantalla se piensa primero para celular y se adapta hacia arriba a tablet/desktop.
+
 ```
 Home / Dashboard
 ├── Iniciar sesión (→ Temporizador)
@@ -203,13 +207,11 @@ Home / Dashboard
 └── Estadísticas
 
 Perfil
-├── Mis áreas de práctica
 ├── Configuración de notificaciones
 └── Plan y suscripción
-
-Coach IA (Premium)
-└── Chat
 ```
+
+> Orfeo (chat con IA) queda fuera de esta etapa — no forma parte de la navegación inicial.
 
 ---
 
@@ -217,14 +219,15 @@ Coach IA (Premium)
 
 | Capa | Tecnología | Por qué |
 |------|-----------|---------|
-| Frontend | Next.js + TypeScript | Web + PWA instalable en celular |
-| Estilos | Tailwind CSS | Rápido, consistente |
+| Frontend | Next.js + TypeScript | PWA mobile-first, instalable en celular |
+| Estilos | Tailwind CSS | Rápido, consistente, responsive desde mobile |
 | Base de datos | Supabase (PostgreSQL) | Free tier generoso, Auth incluida |
 | Deploy | Vercel | Free tier, integración nativa con Next.js |
 | Gráficos | Recharts | Spider chart + estadísticas |
-| IA (Premium) | Claude API (Anthropic) | Mejor para conversación contextual |
 
 Todo en capa gratuita hasta tener tracción real. Sin costo inicial.
+
+> Orfeo (Claude API) se evalúa más adelante — no forma parte del stack de esta etapa.
 
 ---
 
@@ -245,17 +248,16 @@ Todo en capa gratuita hasta tener tracción real. Sin costo inicial.
 - [ ] Estadísticas avanzadas (semana/mes/3 meses)
 - [ ] Plan Pro con Stripe
 
-### v2.0 — Crecimiento
-- [ ] Coach IA (chat con contexto del historial)
+### v2.0 — Crecimiento (a evaluar)
+- [ ] Orfeo: coach con IA (chat con contexto del historial)
 - [ ] Reportes automáticos semanales
-- [ ] Áreas personalizables avanzadas (con subejes)
 - [ ] Versión adaptable a otros dominios (idiomas, ajedrez)
 
 ---
 
-## Preguntas abiertas
+## Decisiones tomadas
 
-- ¿Los ejes del gráfico de araña son fijos o personalizables desde el día 1?
-- ¿Cómo se llama el "Coach"? ¿Tiene personalidad/nombre propio?
-- ¿Soporte multilenguaje desde el lanzamiento (ES + EN)?
-- ¿App nativa eventualmente (React Native), o PWA es suficiente a largo plazo?
+- **Ejes del gráfico de araña:** fijos, no configurables. Mantiene el onboarding simple y los gráficos comparables entre usuarios.
+- **Coach IA:** se llama **Orfeo**, pero queda **fuera del alcance inicial**. No se desarrolla en esta etapa.
+- **Idioma:** solo español por ahora. Inglés se evalúa a futuro si hay tracción.
+- **Plataforma:** PWA, con diseño **mobile-first** (pensado primero para celular, adaptado luego a pantallas más grandes). Nativa (React Native) queda descartada por ahora.
