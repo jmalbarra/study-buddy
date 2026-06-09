@@ -5,65 +5,109 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Melete — Mockups</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap');
-  :root { --ink: #2A2620; --terracota: #C9663E; --cream: #FAF1E6; --gold: #E0AD66; }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background: var(--cream); font-family:'Inter',sans-serif; color: var(--ink); min-height:100vh; padding: 40px 24px 60px; }
-  h1 { font-family:'Fraunces',serif; font-size: 32px; font-weight:700; margin-bottom:6px; }
-  h1 span { color: var(--terracota); }
-  .sub { font-size:14px; color:#8a8270; margin-bottom: 40px; }
-  .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px; }
-  .card { background:#fff; border-radius:20px; overflow:hidden; box-shadow:0 10px 30px rgba(42,38,32,0.10); text-decoration:none; display:block; }
-  .card img { width:100%; display:block; }
-  .card .info { padding:16px 18px 20px; }
-  .card .label { font-family:'Fraunces',serif; font-size:17px; font-weight:700; margin-bottom:4px; }
-  .card .desc { font-size:12px; color:#8a8270; line-height:1.5; }
-  .tag {
-    display:inline-block; font-size:11px; font-weight:700;
-    padding:4px 10px; border-radius:999px; margin-bottom:10px;
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+  :root {
+    --base: #F2ECE3;
+    --terracota: #C9663E;
+    --terracota-deep: #A84E2C;
+    --ink: #28231D;
+    --gold: #E0AD66;
+    --muted: #877F71;
   }
-  .tag.sobria { background:rgba(42,38,32,0.08); color:var(--ink); }
-  .tag.middle { background:rgba(201,102,62,0.15); color:var(--terracota); }
-  .tag.current { background:var(--terracota); color:#fff; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter',sans-serif; color: var(--ink); min-height:100vh;
+    padding: 56px 24px 80px;
+    background:
+      radial-gradient(700px 480px at 10% -6%, rgba(201,102,62,0.35), transparent 60%),
+      radial-gradient(560px 420px at 100% 16%, rgba(224,173,102,0.42), transparent 62%),
+      radial-gradient(600px 480px at 50% 110%, rgba(168,78,44,0.18), transparent 58%),
+      var(--base);
+    background-attachment: fixed;
+    position: relative;
+  }
+  body::after {
+    content: "";
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    mix-blend-mode: multiply;
+  }
+  .container { max-width: 1080px; margin: 0 auto; position: relative; z-index: 2; }
+  .kicker {
+    font-size: 12px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--terracota-deep);
+    margin-bottom: 10px;
+  }
+  h1 { font-family:'Fraunces',serif; font-size: clamp(40px, 7vw, 60px); font-weight:700; letter-spacing:-1.5px; line-height:1; margin-bottom:12px; }
+  h1 em { color: var(--terracota); }
+  .sub { font-size:15px; color:var(--muted); margin-bottom: 48px; max-width: 480px; line-height: 1.6; }
+  .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px; }
+  .card {
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(22px) saturate(150%);
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+    border: 1px solid rgba(255,255,255,0.75);
+    border-radius: 28px; overflow:hidden;
+    box-shadow: 0 14px 40px rgba(40,35,29,0.12), inset 0 1px 0 rgba(255,255,255,0.85);
+    text-decoration:none; display:block; color: var(--ink);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 26px 56px rgba(40,35,29,0.18); }
+  .card .shot { padding: 18px 18px 0; }
+  .card img { width:100%; display:block; border-radius: 18px; box-shadow: 0 8px 24px rgba(40,35,29,0.14); }
+  .card .info { padding:18px 22px 24px; }
+  .card .label { font-family:'Fraunces',serif; font-size:19px; font-weight:700; margin-bottom:5px; }
+  .card .desc { font-size:12.5px; color:var(--muted); line-height:1.55; }
+  .tag {
+    display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700;
+    padding:5px 12px; border-radius:999px; margin-bottom:12px;
+  }
+  .tag.current { background: linear-gradient(135deg, var(--terracota), var(--terracota-deep)); color:#fff; box-shadow: 0 6px 14px rgba(201,102,62,0.35); }
+  .tag.middle { background:rgba(201,102,62,0.12); color:var(--terracota-deep); border: 1px solid rgba(201,102,62,0.2); }
+  .tag.archive { background:rgba(40,35,29,0.06); color:var(--muted); border: 1px solid rgba(40,35,29,0.08); }
 </style>
 </head>
 <body>
-  <h1>Melete <span>✦</span></h1>
-  <p class="sub">Mockups de referencia visual — app de práctica para músicos</p>
+  <div class="container">
+    <div class="kicker">Mockups · referencia visual</div>
+    <h1>Melete <em>✦</em></h1>
+    <p class="sub">App de práctica para músicos. Dirección de diseño: bento grid, superficies de vidrio, gradientes con grano y tipografía expresiva sobre identidad terracota/dorado.</p>
 
-  <div class="grid">
-    <a class="card" href="mockup/dashboard-2026.html">
-      <img src="mockup/dashboard-2026.png" alt="2026 trend">
-      <div class="info">
-        <div class="tag current">→ Dirección actual</div>
-        <div class="label">Dashboard — 2026</div>
-        <div class="desc">Bento grid + liquid glass + gradiente con grano. Tendencias 2026 con identidad terracota/dorado.</div>
-      </div>
-    </a>
-    <a class="card" href="mockup/timer.html">
-      <img src="mockup/timer.png" alt="Timer">
-      <div class="info">
-        <div class="tag middle">Sesión</div>
-        <div class="label">Temporizador + Pomodoro</div>
-        <div class="desc">Pantalla de práctica activa con anillo de progreso y ciclos de Pomodoro.</div>
-      </div>
-    </a>
-    <a class="card" href="mockup/dashboard-balanced.html">
-      <img src="mockup/dashboard-balanced.png" alt="Balanced">
-      <div class="info">
-        <div class="tag middle">Variante</div>
-        <div class="label">Dashboard — Cálido</div>
-        <div class="desc">Punto medio: calidez y lenguaje cercano, paleta única terracota/dorado sin mezcla.</div>
-      </div>
-    </a>
-    <a class="card" href="mockup/dashboard.html">
-      <img src="mockup/dashboard.png" alt="Sobria">
-      <div class="info">
-        <div class="tag sobria">Referencia</div>
-        <div class="label">Dashboard — Sobria</div>
-        <div class="desc">Primera versión. Más académica, greca marcada, serif clásico.</div>
-      </div>
-    </a>
+    <div class="grid">
+      <a class="card" href="mockup/dashboard-2026.html">
+        <div class="shot"><img src="mockup/dashboard-2026.png" alt="Dashboard 2026"></div>
+        <div class="info">
+          <div class="tag current">✦ Dirección actual</div>
+          <div class="label">Dashboard</div>
+          <div class="desc">Bento grid + liquid glass + gradiente con grano. Gráfico de araña con vértices marcados y alertas de balance.</div>
+        </div>
+      </a>
+      <a class="card" href="mockup/timer-2026.html">
+        <div class="shot"><img src="mockup/timer-2026.png" alt="Timer 2026"></div>
+        <div class="info">
+          <div class="tag current">✦ Dirección actual</div>
+          <div class="label">Sesión de práctica</div>
+          <div class="desc">Modo foco oscuro y cálido. Anillo de progreso con gradiente, ciclos de Pomodoro y registro de notas.</div>
+        </div>
+      </a>
+      <a class="card" href="mockup/dashboard-balanced.html">
+        <div class="shot"><img src="mockup/dashboard-balanced.png" alt="Balanced"></div>
+        <div class="info">
+          <div class="tag middle">Variante anterior</div>
+          <div class="label">Dashboard — Cálido</div>
+          <div class="desc">Punto medio: calidez y lenguaje cercano, paleta única terracota/dorado sin mezcla.</div>
+        </div>
+      </a>
+      <a class="card" href="mockup/dashboard.html">
+        <div class="shot"><img src="mockup/dashboard.png" alt="Sobria"></div>
+        <div class="info">
+          <div class="tag archive">Archivo</div>
+          <div class="label">Dashboard — Sobria</div>
+          <div class="desc">Primera exploración. Más académica: greca marcada, serif clásico, tarjetas planas.</div>
+        </div>
+      </a>
+    </div>
   </div>
 </body>
 </html>
