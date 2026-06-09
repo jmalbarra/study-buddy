@@ -3,276 +3,261 @@
 <head>
 <meta charset="UTF-8">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap');
 
   :root {
-    --white:  #FAFAF8;
-    --ink:    #141210;
-    --red:    #E8314A;
-    --yellow: #F5C518;
-    --blue:   #2558E8;
-    --green:  #1FA362;
-    --muted:  #928C7E;
+    --bg:     #F8F6F1;
+    --ink:    #121010;
     --card:   #FFFFFF;
+    --red:    #E32D42;
+    --yellow: #F2BE15;
+    --blue:   #1F52D9;
+    --green:  #1A9958;
+    --muted:  #9E9588;
+    --border: rgba(18,16,16,.08);
   }
+
   * { margin:0; padding:0; box-sizing:border-box; }
+
   body {
     width:390px; height:844px;
-    background: var(--white);
-    font-family:'DM Sans',sans-serif;
-    color: var(--ink);
+    background:var(--bg);
+    font-family:'DM Sans', sans-serif;
+    color:var(--ink);
     overflow:hidden; position:relative;
   }
 
-  /* ── DOTS LAYER ── */
-  .dots { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
-  .d {
-    position:absolute; border-radius:50%;
-    transition: opacity .3s;
+  /* ── two large subtle dots, nothing more ── */
+  .bg-dot-1 {
+    position:absolute; width:220px; height:220px; border-radius:50%;
+    background:var(--yellow); opacity:.10;
+    top:-80px; right:-60px; pointer-events:none;
   }
-  .d.fill  { opacity:.15; }
-  .d.ring  { opacity:.18; border: 9px solid; background:transparent; }
-  .d.ring.sm { border-width:5px; }
+  .bg-dot-2 {
+    position:absolute; width:160px; height:160px; border-radius:50%;
+    background:var(--blue); opacity:.08;
+    bottom:60px; left:-60px; pointer-events:none;
+  }
 
-  /* ── MAIN LAYOUT ── */
-  .wrap { position:relative; z-index:2; padding:34px 22px 0; height:100%; display:flex; flex-direction:column; gap:13px; }
+  .wrap { position:relative; z-index:2; padding:36px 22px 0; }
 
-  /* header */
-  .header { display:flex; justify-content:space-between; align-items:flex-start; }
+  /* ── header ── */
+  .header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:26px; }
   .eyebrow {
-    font-size:10.5px; font-weight:700; letter-spacing:3px;
-    text-transform:uppercase; color:var(--muted); margin-bottom:6px;
-    display:flex; align-items:center; gap:7px;
+    font-size:11px; font-weight:700; letter-spacing:2.5px;
+    text-transform:uppercase; color:var(--muted); margin-bottom:7px;
   }
-  .eyebrow::before { content:''; display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--green); }
   h1 {
-    font-family:'Syne',sans-serif; font-size:40px; font-weight:800;
-    line-height:.92; letter-spacing:-2px;
+    font-family:'Syne',sans-serif;
+    font-size:42px; font-weight:800;
+    line-height:.90; letter-spacing:-2px;
+    color:var(--ink);
   }
-  h1 em { color:var(--red); font-style:normal; }
+  h1 .name {
+    display:block;
+    -webkit-text-stroke: 2.5px var(--ink);
+    color: transparent;
+  }
   .avatar {
-    width:48px; height:48px; border-radius:50%;
-    background:var(--ink);
-    border:3px solid var(--yellow);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Syne',sans-serif; font-size:17px; font-weight:800; color:var(--yellow);
-    flex-shrink:0; margin-top:4px;
-  }
-
-  /* streak band */
-  .streak {
-    background:var(--ink); border-radius:26px; padding:16px 20px;
-    display:flex; align-items:center; justify-content:space-between;
-    position:relative; overflow:hidden;
-  }
-  .streak::before {
-    content:''; position:absolute;
-    width:110px; height:110px; border-radius:50%;
-    border:18px solid rgba(245,197,24,.1);
-    right:-30px; top:-30px;
-  }
-  .streak::after {
-    content:''; position:absolute;
-    width:70px; height:70px; border-radius:50%;
-    border:12px solid rgba(232,49,74,.1);
-    right:20px; bottom:-28px;
-  }
-  .streak-left { display:flex; align-items:baseline; gap:7px; position:relative; z-index:1; }
-  .streak-num { font-family:'Syne',sans-serif; font-size:42px; font-weight:800; color:var(--yellow); line-height:1; letter-spacing:-1.5px; }
-  .streak-meta { display:flex; flex-direction:column; gap:1px; }
-  .streak-unit { font-size:13px; font-weight:700; color:rgba(250,250,248,.5); }
-  .streak-sub  { font-size:11px; color:rgba(250,250,248,.3); font-weight:500; }
-  .streak-badge {
     width:46px; height:46px; border-radius:50%;
-    background: radial-gradient(circle at 35% 35%, var(--yellow), var(--red));
+    border:2.5px solid var(--ink);
     display:flex; align-items:center; justify-content:center;
-    font-size:22px; position:relative; z-index:1;
-    box-shadow:0 4px 16px rgba(232,49,74,.4);
+    font-family:'Syne',sans-serif; font-size:17px; font-weight:800;
+    color:var(--ink); flex-shrink:0; margin-top:2px;
   }
 
-  /* 2-col row */
-  .two-col { display:flex; gap:12px; }
+  /* ── streak ── */
+  .streak {
+    background:var(--ink); border-radius:24px;
+    padding:18px 22px; margin-bottom:14px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .streak-left { display:flex; align-items:baseline; gap:8px; }
+  .snum {
+    font-family:'Syne',sans-serif; font-size:44px; font-weight:800;
+    line-height:1; letter-spacing:-2px;
+    color:var(--yellow);
+  }
+  .smeta { display:flex; flex-direction:column; }
+  .smeta .su { font-size:13px; font-weight:700; color:rgba(248,246,241,.5); }
+  .smeta .sl { font-size:11px; color:rgba(248,246,241,.3); }
+  /* four colored dots as badge */
+  .sdots { display:grid; grid-template-columns:1fr 1fr; gap:5px; }
+  .sdots span {
+    width:16px; height:16px; border-radius:50%; display:block;
+  }
+
+  /* ── two mini stats ── */
+  .mini-row { display:flex; gap:12px; margin-bottom:14px; }
   .mini {
-    flex:1; border-radius:22px; padding:15px 17px;
+    flex:1; background:var(--card); border-radius:20px;
+    padding:16px 18px; border:1.5px solid var(--border);
     position:relative; overflow:hidden;
   }
-  .mini::after {
-    content:''; position:absolute;
-    border-radius:50%; right:-18px; bottom:-18px;
-    opacity:.2;
+  .mini .color-dot {
+    position:absolute; width:56px; height:56px; border-radius:50%;
+    right:-14px; bottom:-14px; opacity:.18;
   }
-  .mini.blue  { background:var(--blue);  }
-  .mini.blue::after  { width:70px;height:70px; background:#fff; }
-  .mini.green { background:var(--green); }
-  .mini.green::after { width:70px;height:70px; background:#fff; }
-  .mini .val { font-family:'Syne',sans-serif; font-size:28px; font-weight:800; color:#fff; line-height:1; letter-spacing:-0.5px; }
-  .mini .lbl { font-size:11px; font-weight:600; color:rgba(255,255,255,.6); margin-top:4px; }
+  .mini .val {
+    font-family:'Syne',sans-serif; font-size:28px; font-weight:800;
+    line-height:1; letter-spacing:-0.5px;
+    position:relative; z-index:1;
+  }
+  .mini .lbl {
+    font-size:11px; font-weight:600; color:var(--muted); margin-top:5px;
+    position:relative; z-index:1;
+  }
 
-  /* spider card */
+  /* ── spider card ── */
   .spider-card {
-    background:var(--card); border-radius:28px; padding:18px 16px 14px;
-    border:1.5px solid rgba(20,18,16,.07);
-    box-shadow:0 8px 28px rgba(20,18,16,.07);
-    flex:1;
+    background:var(--card); border-radius:28px;
+    padding:20px 18px 16px; border:1.5px solid var(--border);
+    margin-bottom:14px;
   }
-  .spider-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:2px; }
-  .spider-top h2 { font-family:'Syne',sans-serif; font-size:17px; font-weight:800; }
+  .stop { display:flex; justify-content:space-between; align-items:center; margin-bottom:2px; }
+  .stop h2 { font-family:'Syne',sans-serif; font-size:18px; font-weight:800; }
   .period {
     font-size:11px; font-weight:700; color:var(--muted);
-    background:rgba(20,18,16,.05); padding:5px 13px; border-radius:999px;
-    border:1px solid rgba(20,18,16,.06);
+    background:rgba(18,16,16,.05); border:1px solid var(--border);
+    padding:5px 13px; border-radius:999px;
   }
-  .spider-hint { font-size:11px; color:var(--muted); margin-bottom:5px; }
+  .shint { font-size:11px; color:var(--muted); margin-bottom:8px; }
   .spider-wrap { display:flex; justify-content:center; }
 
-  svg .ring  { fill:none; stroke:rgba(20,18,16,.07); stroke-width:1; }
-  svg .ax    { stroke:rgba(20,18,16,.06); stroke-width:1; }
-  svg .shape { fill:rgba(37,88,232,.12); stroke:var(--blue); stroke-width:2.5; stroke-linejoin:round; }
-  svg .lbl   { font-family:'DM Sans',sans-serif; font-size:8.5px; font-weight:700; }
+  svg .ring  { fill:none; stroke:rgba(18,16,16,.07); stroke-width:1; }
+  svg .ax    { stroke:rgba(18,16,16,.06); stroke-width:1; }
+  svg .shape { fill:rgba(31,82,217,.10); stroke:var(--blue); stroke-width:2; stroke-linejoin:round; }
+  svg text   { font-family:'DM Sans',sans-serif; font-size:8.5px; font-weight:700; }
 
-  .tags { display:flex; gap:8px; margin-top:10px; }
+  .tags { display:flex; gap:8px; margin-top:12px; }
   .tag {
-    flex:1; text-align:center; font-size:11px; font-weight:700;
-    padding:9px; border-radius:999px;
-    display:flex; align-items:center; justify-content:center; gap:5px;
+    flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
+    font-size:11px; font-weight:700; padding:9px; border-radius:999px;
   }
-  .tag .td { width:7px; height:7px; border-radius:50%; }
-  .tag.up   { background:rgba(31,163,98,.12); color:#12743F; }
-  .tag.warn { background:rgba(232,49,74,.10); color:#B01D30; }
+  .tag .td { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .tag.up   { background:rgba(26,153,88,.10); color:#0F6636; }
+  .tag.warn { background:rgba(227,45,66,.09);  color:#B01E2E; }
 
-  /* cta */
+  /* ── cta ── */
   .cta {
-    background:var(--red); color:#fff;
-    border-radius:999px; padding:17px 22px;
+    background:var(--red); color:#fff; border-radius:999px;
+    padding:18px 24px;
     display:flex; align-items:center; justify-content:space-between;
-    box-shadow:0 12px 30px rgba(232,49,74,.3);
+    box-shadow:0 12px 28px rgba(227,45,66,.28);
   }
   .cta-lbl { font-family:'Syne',sans-serif; font-size:16px; font-weight:800; }
-  .cta-right { display:flex; align-items:center; gap:6px; }
-  .cta-dot { width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.5); }
-  .cta-dot.y { background:var(--yellow); }
   .cta-arr {
-    width:38px; height:38px; border-radius:50%;
+    width:40px; height:40px; border-radius:50%;
     background:rgba(255,255,255,.22);
-    display:flex; align-items:center; justify-content:center; font-size:16px; margin-left:8px;
+    display:flex; align-items:center; justify-content:center; font-size:17px;
   }
 
-  /* tabbar */
+  /* ── tabbar ── */
   .tabbar {
     position:absolute; bottom:16px; left:22px; right:22px; height:62px;
     background:var(--ink); border-radius:999px;
-    display:flex; align-items:center; justify-content:space-around; padding:0 6px;
-    box-shadow:0 16px 36px rgba(20,18,16,.22); z-index:3;
+    display:flex; align-items:center; justify-content:space-around; padding:0 8px;
+    box-shadow:0 16px 36px rgba(18,16,16,.2); z-index:3;
   }
-  .tab { display:flex; flex-direction:column; align-items:center; gap:3px; font-size:9px; font-weight:700; color:rgba(250,250,248,.3); padding:6px 10px; border-radius:999px; }
+  .tab { display:flex; flex-direction:column; align-items:center; gap:3px; font-size:9px; font-weight:700; color:rgba(248,246,241,.3); padding:6px 12px; border-radius:999px; }
   .tab.active { background:var(--yellow); color:var(--ink); }
   .tab .ico { font-size:13px; line-height:1; }
 </style>
 </head>
 <body>
 
-  <div class="dots">
-    <!-- filled -->
-    <div class="d fill" style="width:120px;height:120px;background:var(--red);top:-42px;left:-28px;"></div>
-    <div class="d fill" style="width:80px;height:80px;background:var(--yellow);top:10px;right:-24px;"></div>
-    <div class="d fill" style="width:52px;height:52px;background:var(--blue);top:198px;left:-16px;"></div>
-    <div class="d fill" style="width:44px;height:44px;background:var(--green);bottom:160px;right:-12px;"></div>
-    <div class="d fill" style="width:72px;height:72px;background:var(--yellow);bottom:70px;left:-26px;"></div>
-    <div class="d fill" style="width:34px;height:34px;background:var(--red);bottom:230px;right:18px;"></div>
-    <!-- rings -->
-    <div class="d ring" style="width:96px;height:96px;border-color:var(--blue);top:130px;right:-28px;"></div>
-    <div class="d ring sm" style="width:58px;height:58px;border-color:var(--green);top:320px;left:16px;"></div>
-    <div class="d ring" style="width:76px;height:76px;border-color:var(--red);bottom:110px;right:12px;"></div>
-    <div class="d ring sm" style="width:44px;height:44px;border-color:var(--yellow);top:76px;left:50px;opacity:.1;"></div>
-  </div>
+  <div class="bg-dot-1"></div>
+  <div class="bg-dot-2"></div>
 
   <div class="wrap">
+
     <div class="header">
       <div>
-        <div class="eyebrow">Dom · 7 Jun · en racha</div>
-        <h1>Vamos,<br><em>Lucas</em></h1>
+        <div class="eyebrow">Dom · 7 Jun</div>
+        <h1>Vamos,<span class="name">Lucas</span></h1>
       </div>
       <div class="avatar">L</div>
     </div>
 
     <div class="streak">
       <div class="streak-left">
-        <div class="streak-num">18</div>
-        <div class="streak-meta">
-          <div class="streak-unit">días seguidos</div>
-          <div class="streak-sub">récord personal</div>
+        <div class="snum">18</div>
+        <div class="smeta">
+          <span class="su">días seguidos</span>
+          <span class="sl">récord personal</span>
         </div>
       </div>
-      <div class="streak-badge">🔥</div>
+      <div class="sdots">
+        <span style="background:var(--red)"></span>
+        <span style="background:var(--yellow)"></span>
+        <span style="background:var(--blue)"></span>
+        <span style="background:var(--green)"></span>
+      </div>
     </div>
 
-    <div class="two-col">
-      <div class="mini blue">
+    <div class="mini-row">
+      <div class="mini">
+        <div class="color-dot" style="background:var(--blue)"></div>
         <div class="val">52m</div>
         <div class="lbl">practicados hoy</div>
       </div>
-      <div class="mini green">
+      <div class="mini">
+        <div class="color-dot" style="background:var(--green)"></div>
         <div class="val">+18%</div>
         <div class="lbl">vs. semana pasada</div>
       </div>
     </div>
 
     <div class="spider-card">
-      <div class="spider-top">
+      <div class="stop">
         <h2>Tu balance</h2>
         <div class="period">Esta semana ▾</div>
       </div>
-      <div class="spider-hint">Cuanto más parejo, más completo tu estudio</div>
+      <div class="shint">Cuanto más parejo el polígono, más completo tu estudio</div>
       <div class="spider-wrap">
-        <svg width="230" height="182" viewBox="0 0 230 182">
-          <polygon class="ring" points="115,10 168,34 192,87 168,140 115,164 62,140 38,87 62,34"/>
-          <polygon class="ring" points="115,38 155,56 173,87 155,118 115,136 75,118 57,87 75,56"/>
-          <polygon class="ring" points="115,66 138,77 148,87 138,97 115,108 92,97 82,87 92,77"/>
-          <line class="ax" x1="115" y1="87" x2="115" y2="10"/>
-          <line class="ax" x1="115" y1="87" x2="168" y2="34"/>
-          <line class="ax" x1="115" y1="87" x2="192" y2="87"/>
-          <line class="ax" x1="115" y1="87" x2="168" y2="140"/>
-          <line class="ax" x1="115" y1="87" x2="115" y2="164"/>
-          <line class="ax" x1="115" y1="87" x2="62" y2="140"/>
-          <line class="ax" x1="115" y1="87" x2="38" y2="87"/>
-          <line class="ax" x1="115" y1="87" x2="62" y2="34"/>
-          <polygon class="shape" points="115,18 160,42 178,87 156,124 115,120 90,130 70,87 93,48"/>
-          <!-- coloured vertex dots per area -->
-          <circle cx="115" cy="18"  r="5" fill="var(--red)"    stroke="#fff" stroke-width="1.5"/>
-          <circle cx="160" cy="42"  r="5" fill="var(--blue)"   stroke="#fff" stroke-width="1.5"/>
-          <circle cx="178" cy="87"  r="5" fill="var(--yellow)"  stroke="#fff" stroke-width="1.5"/>
-          <circle cx="156" cy="124" r="5" fill="var(--green)"  stroke="#fff" stroke-width="1.5"/>
-          <circle cx="115" cy="120" r="5" fill="var(--red)"    stroke="#fff" stroke-width="1.5"/>
-          <circle cx="90"  cy="130" r="5" fill="var(--blue)"   stroke="#fff" stroke-width="1.5"/>
-          <circle cx="70"  cy="87"  r="5" fill="var(--green)"  stroke="#fff" stroke-width="1.5"/>
-          <circle cx="93"  cy="48"  r="5" fill="var(--yellow)"  stroke="#fff" stroke-width="1.5"/>
-          <!-- labels -->
-          <text class="lbl" x="115" y="4"   text-anchor="middle" fill="var(--red)">Técnica</text>
-          <text class="lbl" x="180" y="28"  text-anchor="middle" fill="var(--blue)">Repertorio</text>
-          <text class="lbl" x="210" y="91"  text-anchor="middle" fill="var(--muted)">Lectura</text>
-          <text class="lbl" x="180" y="155" text-anchor="middle" fill="var(--muted)">Teoría</text>
-          <text class="lbl" x="115" y="176" text-anchor="middle" fill="var(--red)" font-weight="800">Oído !</text>
-          <text class="lbl" x="50"  y="155" text-anchor="middle" fill="var(--green)">Ritmo</text>
-          <text class="lbl" x="20"  y="91"  text-anchor="middle" fill="var(--muted)">Improv.</text>
-          <text class="lbl" x="50"  y="28"  text-anchor="middle" fill="var(--yellow)">Perform.</text>
+        <svg width="226" height="180" viewBox="0 0 226 180">
+          <polygon class="ring" points="113,10 165,33 188,86 165,139 113,162 61,139 38,86 61,33"/>
+          <polygon class="ring" points="113,37 153,55 170,86 153,117 113,135 73,117 56,86 73,55"/>
+          <polygon class="ring" points="113,64 136,75 146,86 136,97 113,108 90,97 80,86 90,75"/>
+          <line class="ax" x1="113" y1="86" x2="113" y2="10"/>
+          <line class="ax" x1="113" y1="86" x2="165" y2="33"/>
+          <line class="ax" x1="113" y1="86" x2="188" y2="86"/>
+          <line class="ax" x1="113" y1="86" x2="165" y2="139"/>
+          <line class="ax" x1="113" y1="86" x2="113" y2="162"/>
+          <line class="ax" x1="113" y1="86" x2="61" y2="139"/>
+          <line class="ax" x1="113" y1="86" x2="38" y2="86"/>
+          <line class="ax" x1="113" y1="86" x2="61" y2="33"/>
+          <polygon class="shape" points="113,18 158,41 176,86 154,123 113,119 89,129 69,86 92,47"/>
+          <!-- vertex dots in area color -->
+          <circle cx="113" cy="18"  r="5" fill="var(--red)"    stroke="white" stroke-width="1.5"/>
+          <circle cx="158" cy="41"  r="5" fill="var(--blue)"   stroke="white" stroke-width="1.5"/>
+          <circle cx="176" cy="86"  r="5" fill="var(--green)"  stroke="white" stroke-width="1.5"/>
+          <circle cx="154" cy="123" r="5" fill="var(--yellow)"  stroke="white" stroke-width="1.5"/>
+          <circle cx="113" cy="119" r="5" fill="var(--red)"    stroke="white" stroke-width="1.5"/>
+          <circle cx="89"  cy="129" r="5" fill="var(--blue)"   stroke="white" stroke-width="1.5"/>
+          <circle cx="69"  cy="86"  r="5" fill="var(--green)"  stroke="white" stroke-width="1.5"/>
+          <circle cx="92"  cy="47"  r="5" fill="var(--yellow)"  stroke="white" stroke-width="1.5"/>
+          <text x="113" y="4"   text-anchor="middle" fill="var(--red)"   >Técnica</text>
+          <text x="178" y="27"  text-anchor="middle" fill="var(--blue)"  >Repertorio</text>
+          <text x="206" y="90"  text-anchor="middle" fill="var(--muted)" >Lectura</text>
+          <text x="178" y="153" text-anchor="middle" fill="var(--muted)" >Teoría</text>
+          <text x="113" y="175" text-anchor="middle" fill="var(--red)"   font-weight="800">Oído !</text>
+          <text x="48"  y="153" text-anchor="middle" fill="var(--green)" >Ritmo</text>
+          <text x="18"  y="90"  text-anchor="middle" fill="var(--muted)" >Improv.</text>
+          <text x="48"  y="27"  text-anchor="middle" fill="var(--yellow)" >Perform.</text>
         </svg>
       </div>
       <div class="tags">
         <div class="tag up"><div class="td" style="background:var(--green)"></div>Ritmo subió 12%</div>
-        <div class="tag warn"><div class="td" style="background:var(--red)"></div>Oído necesita amor</div>
+        <div class="tag warn"><div class="td" style="background:var(--red)"></div>Oído necesita atención</div>
       </div>
     </div>
 
     <div class="cta">
       <div class="cta-lbl">Iniciar práctica</div>
-      <div class="cta-right">
-        <div class="cta-dot y"></div>
-        <div class="cta-dot"></div>
-        <div class="cta-dot"></div>
-        <div class="cta-dot"></div>
-        <div class="cta-arr">→</div>
-      </div>
+      <div class="cta-arr">→</div>
     </div>
+
   </div>
 
   <div class="tabbar">
@@ -281,5 +266,6 @@
     <div class="tab"><span class="ico">▤</span>Historial</div>
     <div class="tab"><span class="ico">◐</span>Perfil</div>
   </div>
+
 </body>
 </html>
